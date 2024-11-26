@@ -1,27 +1,45 @@
-// script.js
+document.getElementById('tva-form').addEventListener('submit', function (event) {
+    class PriceData {
+        constructor(ttcPrice, taxRate) {
+            this.ttcPrice = Pricetcc;
+            this.taxRate = pricetax;
+            //calcul prix HT
+            this.htP = ttcPrice / (1 + taxRate / 100);;
+            //calcul montant taxes
+            this.taxAmount = this.ttcPrice - this.htP;
+        }
+    }
+    event.preventDefault();
 
-let total = 0;
-function calc(x, y, z) {
-    let result = x + y + z;
-    return result;
-}
+    class DataPrice {
+        constructor(ttcPrice, taxRate) {
+            this.ttcPrice = Pricetcc;
+            this.taxRate = pricetax;
+            //calcul prix HT
+            this.htP = ttcPrice / (1 + taxRate / 100);;
+            //calcul montant taxes
+            this.taxAmount = this.ttcPrice - this.htP;
+        }
+    }
 
-function tva(price, rate) {
-    return price * (rate / 100);
-}
+    const priceTTC = parseFloat(document.getElementById('p').value);
+    const taxRate = parseFloat(document.getElementById('t').value);
 
-// Calculer la somme de trois nombres
-let sum = calc(10, 20, 30);
-console.log("Sum is: " + sum);
+    if (isNaN(priceTTC) || isNaN(taxRate) || priceTTC <= 0 || taxRate < 0) {
+        alert('Veuillez entrer des valeurs valides.');
+        return;
+    }
 
-// Calculer la TVA pour deux produits
-let pr1 = 100;
-let pr2 = 200;
-let vat1 = tva(pr1, 20);
-let vat2 = tva(pr2, 20);
-console.log("VAT for product 1: " + vat1);
-console.log("VAT for product 2: " + vat2);
 
-// Calculer le total avec TVA
-total = pr1 + vat1 + pr2 + vat2;
-console.log("Total with VAT: " + total);
+
+
+
+    const resultsSection = document.getElementById('results');
+    const priceData = new PriceData(priceTTC, taxRate);
+    const DataP = new DataPrice(priceTTC, taxRate);
+    resultsSection.innerHTML = `
+        <p><strong>Prix HT :</strong> ${priceData.htPrice.toFixed(2)} €</p>
+        <p><strong>Part TVA :</strong> ${Datap.taxAmount.toFixed(2)} €</p>
+        <p><strong>Prix TTC :</strong> ${priceData.ttcPrice.toFixed(2)} €</p>
+    `;
+});
